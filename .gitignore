@@ -6,6 +6,8 @@ pom.xml.asc
 *.jar
 *.js
 *.html
+*.log
+*.rebel_readline_history
 *.class
 /.lein-*
 /.nrepl-port

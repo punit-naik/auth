@@ -1,7 +1,7 @@
 (ns auth.core
   (:require [ring.middleware.params]
             [compojure.core]
-            [ring.middleware.cors]
+            [ring.middleware.cors :refer [wrap-cors]]
             [ring.util.response :refer [response]]
             [auth.jws.core :refer [wrap-handler-with-auth-backend authenticated? do-login do-logout]]))
 
@@ -32,22 +32,6 @@
 ;                    "Access-Control-Allow-Origin" "*"
 ;                    "Access-Control-Allow-Credentials" "true")))
 ;                    "Access-Control-Expose-Headers" "Authorization")))
-
-(comment
- (wrap-cors handler
-            :access-control-allow-origin [#".*"]
-            :access-control-allow-credentials "true"
-            :access-control-allow-methods [:get :put :post :delete]
-            :access-control-request-method ["GET" "PUT" "POST" "DELETE"])
- (defn attach-necessary-headers
-   "Attaches necessary headers to the request"
-   [request]
-   (assoc request
-     :headers (conj (:headers request)
-                    {"Access-Control-Allow-Headers" "Authorization"
-                     "Access-Control-Allow-Origin" "*"
-                     "Access-Control-Allow-Credentials" "true"
-                     "Access-Control-Expose-Headers" "Authorization"}))))
 
 (def handler
   (do (include-necessary-fns "jws")

@@ -21,24 +21,3 @@
    NOTE: Payload is always a JSON (Clojure map)!"
   [token]
   (parse-json (decodeString (second (split token #"\."))) true))
-
-(defn- base64-url-escape
-  [b64string]
-  (-> b64string
-      (replace "+" "-")
-      (replace "/" "_")
-      (replace "=" "")))
-
-(defn encode-payload
-  "Encodes any payload data (cljs map) and cleans the encoded string output"
-  [payload]
-  (base64-url-escape (encodeString (generate-json payload))))
-
-(defn re-encode-token
-  "Re-encodes JWT with new payload.
-   NOTE: This token HAS to go in the headers where the key is \"authorization\" and it's value is
-         a map i.e. (generate-json {\"jwt\" <JWT>}). We need to strigify the {\"jwt\" <JWT>} map
-   e.g. `(http/get \"http://localhost:3000\" {:headers {\"authorization\" (generate-json {\"jwt\" d})}})`"
-  [token new-payload]
-  (let [[headers payload signature] (split token #"\.")]
-    (str headers "." (encode-payload new-payload) "." signature)))
