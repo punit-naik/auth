@@ -1,0 +1,1 @@
+{:main "auth.core", :asset-path "resources/public/js/out", :output-to "app.js", :output-dir "resources/public/js/out", :optimizations :none, :source-map-timestamp true, :preloads [figwheel.connect], :external-config #:figwheel{:config {:build-id "test", :websocket-url "ws://localhost:3449/figwheel-ws"}}}
