@@ -1,7 +1,7 @@
 (ns auth.jws.core
   (:require [buddy.auth.backends.token :refer [jws-backend]]
             [buddy.auth.middleware :refer [wrap-authentication]]
-            [buddy.sign.jwt :refer [sign unsign]] ; Should be `jws` instead of `jwt`
+            [buddy.sign.jwt :refer [sign unsign]]
             [ring.util.response :refer [response redirect]]
             [cheshire.core :refer [generate-string parse-string]]))
 
